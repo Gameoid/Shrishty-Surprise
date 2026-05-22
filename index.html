@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Top Secret 🤫</title>
+    <title>Classified Files 🤫</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
 
@@ -15,7 +15,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #0d0d11; /* Slightly darker for better contrast with sparkles */
+            background-color: #0d0d11;
             color: #ffffff;
             height: 100vh;
             width: 100vw;
@@ -24,12 +24,11 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            position: relative; /* Crucial for background layers */
+            position: relative;
             z-index: 0;
         }
 
-        /* --- Sparkle Background Elements --- */
-        /* Layer 1 - Smaller, faster sparkles */
+        /* Sparkle Background Elements */
         body::before {
             content: '';
             position: fixed;
@@ -42,11 +41,10 @@
                 radial-gradient(white, rgba(255,255,255,.05) 1px, transparent 1px);
             background-size: 550px 550px, 350px 350px;
             background-position: 0 0, 40px 60px;
-            z-index: -2; /* Far back */
+            z-index: -2;
             animation: backgroundSparkle1 30s linear infinite;
         }
 
-        /* Layer 2 - Larger, slower twinkling 'stars' */
         body::after {
             content: '';
             position: fixed;
@@ -59,22 +57,19 @@
                 radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1.5px);
             background-size: 470px 470px, 290px 290px;
             background-position: 10px 10px, 80px 120px;
-            z-index: -1; /* Closer back */
+            z-index: -1;
             animation: backgroundSparkle2 20s ease-in-out infinite alternate;
         }
 
-        /* Animation for Layer 1 - slow movement */
         @keyframes backgroundSparkle1 {
             from { transform: translateY(0); }
             to { transform: translateY(-550px); }
         }
 
-        /* Animation for Layer 2 - twinkle/fade */
         @keyframes backgroundSparkle2 {
             0%, 100% { opacity: 0.3; transform: scale(1); }
             50% { opacity: 0.9; transform: scale(1.1); }
         }
-        /* --- End Sparkle Styles --- */
 
         .screen {
             display: none;
@@ -84,12 +79,12 @@
             width: 90%;
             max-width: 800px; /* Perfect for iPad */
             padding: 40px;
-            background: rgba(28, 28, 36, 0.9); /* Slightly translucent to see background */
+            background: rgba(28, 28, 36, 0.85);
             border-radius: 24px;
-            backdrop-filter: blur(5px); /* Nice iPad effect */
+            backdrop-filter: blur(8px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             animation: fadeIn 0.8s ease-in-out;
-            z-index: 10; /* Ensures content is above sparkles */
+            z-index: 10;
         }
 
         .active {
@@ -97,35 +92,51 @@
         }
 
         h1 {
-            font-size: 3rem; /* Scaled for tablet */
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
             line-height: 1.2;
+            color: #ff416c;
         }
 
         p {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: #d0d0d0;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             line-height: 1.6;
         }
 
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 500px;
+        }
+
         .btn {
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            background: linear-gradient(135deg, #2b2b36, #1c1c24);
             color: white;
+            border: 2px solid #ff416c;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
             border: none;
+            border-radius: 50px;
             padding: 20px 40px;
             font-size: 1.5rem;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
             box-shadow: 0 8px 15px rgba(255, 65, 108, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-            -webkit-tap-highlight-color: transparent; /* Removes blue tap box on iPad */
         }
 
         .btn:active {
             transform: scale(0.95);
-            box-shadow: 0 4px 10px rgba(255, 65, 108, 0.2);
         }
 
         @keyframes fadeIn {
@@ -134,16 +145,18 @@
         }
 
         /* Final screen specific styling */
-        #screen-4 h1 {
+        #screen-final h1 {
             background: -webkit-linear-gradient(#ffce00, #ff3a3a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-size: 3rem;
         }
         
-        #screen-4 p {
+        #screen-final p {
             font-size: 1.2rem;
             color: #eaeaea;
             text-align: left;
+            margin-bottom: 0;
         }
     </style>
 </head>
@@ -151,76 +164,132 @@
 
     <!-- Screen 1: The Hook -->
     <div class="screen active" id="screen-1">
-        <h1>Hey Shrishty...</h1>
-        <p>I heard today isn't feeling like a very special day for you.</p>
-        <button class="btn" onclick="nextScreen(2)">Tap to continue</button>
+        <h1>System Locked 🔒</h1>
+        <p>Encrypted file detected. Are you authorized to view this?</p>
+        <button class="btn btn-primary" onclick="nextScreen(2)">Initiate Unlock</button>
     </div>
 
-    <!-- Screen 2: Building Suspense -->
+    <!-- Screen 2: Quiz Intro -->
     <div class="screen" id="screen-2">
-        <h1>Well, we can't have that.</h1>
-        <p>You didn't think I'd let you just sit there and be bored today, did you? Especially after surviving Class 9 & 10 together.</p>
-        <button class="btn" onclick="nextScreen(3)">Tap again</button>
+        <h1>Identity Verification</h1>
+        <p>To prove you are actually Shrishty, you must answer these highly sensitive questions perfectly.</p>
+        <button class="btn btn-primary" onclick="nextScreen(3)">Start Test</button>
     </div>
 
-    <!-- Screen 3: The Tease -->
+    <!-- Screen 3: Question 1 -->
     <div class="screen" id="screen-3">
-        <h1>I know we're in different schools now...</h1>
-        <p>But my duty to annoy you remains fully active.</p>
-        <button class="btn" onclick="nextScreen(4); triggerConfetti();">Reveal the Truth</button>
+        <h1>Question 1</h1>
+        <p>Who was the ultimate, undisputed drama queen of Class 9 & 10?</p>
+        <div class="options-container">
+            <button class="btn" onclick="wrongAnswer(1)">Obviously Adi 🙄</button>
+            <button class="btn" onclick="nextScreen(4)">Me (Shrishty) 🙋‍♀️</button>
+        </div>
     </div>
 
-    <!-- Screen 4: The Final Birthday Wish -->
+    <!-- Screen 4: Question 2 -->
     <div class="screen" id="screen-4">
-        <h1>🎂 HAPPY BIRTHDAY DUMBO! 🎉</h1>
+        <h1>Question 2</h1>
+        <p>What is the REAL reason you left for another school in Class 11th?</p>
+        <div class="options-container">
+            <button class="btn" onclick="wrongAnswer(2)">To focus on academics 🤓</button>
+            <button class="btn" onclick="nextScreen(5)">Because I couldn't handle Adi's roasting anymore 😭</button>
+        </div>
+    </div>
+
+    <!-- Screen 5: Question 3 -->
+    <div class="screen" id="screen-5">
+        <h1>Question 3</h1>
+        <p>Who has a PhD in overthinking the smallest, most useless things?</p>
+        <div class="options-container">
+            <button class="btn" onclick="nextScreen(6)">Definitely me, zero doubts 🧠💨</button>
+            <button class="btn" onclick="wrongAnswer(3)">Adi karta hai overthink 🤥</button>
+        </div>
+    </div>
+
+    <!-- Screen 6: Question 4 -->
+    <div class="screen" id="screen-6">
+        <h1>Question 4</h1>
+        <p>If we were stuck in an anime or video game, what would be your role?</p>
+        <div class="options-container">
+            <button class="btn" onclick="wrongAnswer(4)">The main character with OP powers 😎</button>
+            <button class="btn" onclick="nextScreen(7)">The sidekick who screams and hides behind Adi 🏃‍♀️💨</button>
+        </div>
+    </div>
+
+    <!-- Screen 7: Question 5 (Final Boss) -->
+    <div class="screen" id="screen-7">
+        <h1>Question 5 (Final Boss)</h1>
+        <p>Who is the absolute coolest best friend in the entire universe for making this website?</p>
+        <div class="options-container">
+            <button class="btn" onclick="wrongAnswer(5)">I guess Adi is okay... 🤷‍♀️</button>
+            <button class="btn" onclick="nextScreen(8)">Adi THE ABSOLUTE GOAT 🐐👑</button>
+        </div>
+    </div>
+
+    <!-- Screen 8: The Birthday Wish -->
+    <div class="screen" id="screen-8">
+        <h1 id="screen-final-h1">🎂 HAPPY BDAY DUMBO! 🎉</h1>
         <p>
-            Chalo, finally ek saal aur buddhi ho gayi tu. Class 11th mein school change karke jo tune dhoka diya hai, uski saza toh baaki hai, but I'll forgive you today. 😂 <br><br>
-            Honestly, Class 9th and 10th with you was pure gold. Thank you for being my chief therapist, handling my sad phases, and celebrating the good times. School alag hone se kuch nahi badla, your irreplaceable spot is still right here. <br><br>
-            I hope this little thing brought a smile to your face. Distance doesn't change a single thing between us. Party ready rakh! ✨
+            Identity Verified. ✅ <br><br>
+            Chalo, finally ek saal aur buddhi ho gayi tu. Honestly, Class 9th and 10th with you was pure gold. Thank you for being the one person who handled all my highs, lows, and random phases. <br><br>
+            Even though you betrayed me for another school in 11th, tera irreplaceable spot abhi bhi wahin hai. Distance doesn't change a single thing between us. I hope this dumb little website made you smile today. <br><br>
+            Ab jyada bhav mat kha, party ready rakh! ✨
         </p>
     </div>
 
     <script>
-        // Function to transition between screens smoothly
         function nextScreen(screenNumber) {
-            // Hide all screens
             document.querySelectorAll('.screen').forEach(screen => {
                 screen.classList.remove('active');
             });
-            // Show the target screen
             document.getElementById('screen-' + screenNumber).classList.add('active');
+            
+            // Trigger confetti ONLY on screen 8
+            if(screenNumber === 8) {
+                triggerConfetti();
+                document.getElementById('screen-final-h1').style.fontSize = "3rem";
+            }
         }
 
-        // Simple function to create a confetti effect on the iPad screen
+        function wrongAnswer(questionNum) {
+            if (questionNum === 1) {
+                alert("ERROR ❌: Jhooth mat bol! Accept that you are the drama queen and click the right option. 😂");
+            } else if (questionNum === 2) {
+                alert("ERROR ❌: Be real. We both know studies was just an excuse! Try again! 💀");
+            } else if (questionNum === 3) {
+                alert("ERROR ❌: Acha? Kisne pichli baar itna overthink kiya tha? Click the truth! 😂");
+            } else if (questionNum === 4) {
+                alert("ERROR ❌: Main character? Tere paas 100 meter bhaagne ki stamina nahi hai! Pick the other one! 💀");
+            } else if (questionNum === 5) {
+                alert("ERROR ❌: 'Okay'?! I literally coded a whole website for you! Show some respect to the master! 😤");
+            }
+        }
+
         function triggerConfetti() {
             const colors = ['#ff4b2b', '#ff416c', '#f2d74e', '#95c11f', '#3498db'];
             for (let i = 0; i < 100; i++) {
                 let confetti = document.createElement('div');
-                // Confetti styles
                 confetti.style.position = 'absolute';
                 confetti.style.width = '15px';
                 confetti.style.height = '15px';
-                confetti.style.zIndex = '100'; // Make sure confetti is the highest element
+                confetti.style.zIndex = '100';
                 document.body.appendChild(confetti);
 
-                // Randomize positions and colors
                 confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.top = Math.random() * -20 + 'vh'; // Start slightly above view
+                confetti.style.top = Math.random() * -20 + 'vh';
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.opacity = Math.random() * 0.5 + 0.5; // Random initial opacity
+                confetti.style.opacity = Math.random() * 0.5 + 0.5;
                 
-                // Animate them falling
                 let fallDuration = Math.random() * 3 + 2;
                 confetti.animate([
                     { transform: `translate3d(0, 0, 0) rotate(0deg)`, opacity: 1 },
                     { transform: `translate3d(${Math.random()*30 - 15}vw, 110vh, 0) rotate(${Math.random()*360*2}deg)`, opacity: 0 }
                 ], {
                     duration: fallDuration * 1000,
-                    easing: 'cubic-bezier(.17,.67,.83,.67)', // specific fall easing
+                    easing: 'cubic-bezier(.17,.67,.83,.67)',
                     fill: 'forwards'
                 });
 
-                // Cleanup
                 setTimeout(() => {
                     confetti.remove();
                 }, fallDuration * 1000);
