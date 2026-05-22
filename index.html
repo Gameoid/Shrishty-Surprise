@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Top Secret 🤫</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f0f13; /* Dark aesthetic */
+            color: #ffffff;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+            max-width: 800px; /* Perfect for iPad */
+            padding: 40px;
+            background: #1c1c24;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .active {
+            display: flex;
+        }
+
+        h1 {
+            font-size: 3rem; /* Scaled for tablet */
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: #b0b0c0;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(255, 65, 108, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            -webkit-tap-highlight-color: transparent; /* Removes blue tap box on iPad */
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 4px 10px rgba(255, 65, 108, 0.2);
+        }
+
+        /* Confetti Animation Elements */
+        .confetti {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #f2d74e;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Final screen specific styling */
+        #screen-4 h1 {
+            background: -webkit-linear-gradient(#ffce00, #ff3a3a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        #screen-4 p {
+            font-size: 1.2rem;
+            color: #eaeaea;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Screen 1: The Hook -->
+    <div class="screen active" id="screen-1">
+        <h1>Hey Shrishty...</h1>
+        <p>I heard today isn't feeling like a very special day for you.</p>
+        <button class="btn" onclick="nextScreen(2)">Tap to continue</button>
+    </div>
+
+    <!-- Screen 2: Building Suspense -->
+    <div class="screen" id="screen-2">
+        <h1>Well, we can't have that.</h1>
+        <p>You didn't think I'd let you just sit there and be bored today, did you? Especially after surviving Class 9 & 10 together.</p>
+        <button class="btn" onclick="nextScreen(3)">Tap again</button>
+    </div>
+
+    <!-- Screen 3: The Tease -->
+    <div class="screen" id="screen-3">
+        <h1>I know we're in different schools now...</h1>
+        <p>But my duty to annoy you remains fully active.</p>
+        <button class="btn" onclick="nextScreen(4); triggerConfetti();">Reveal the Truth</button>
+    </div>
+
+    <!-- Screen 4: The Final Birthday Wish -->
+    <div class="screen" id="screen-4">
+        <h1>🎂 HAPPY BIRTHDAY DUMBO! 🎉</h1>
+        <p>
+            Chalo, finally ek saal aur buddhi ho gayi tu. Class 11th mein school change karke jo tune dhoka diya hai, uski saza toh baaki hai, but I'll forgive you today. 😂 <br><br>
+            Honestly, Class 9th and 10th with you was pure gold. Thank you for being my chief therapist, handling my sad phases, and celebrating the good times. School alag hone se kuch nahi badla, your irreplaceable spot is still right here. <br><br>
+            I hope this little thing brought a smile to your face. Distance doesn't change a single thing between us. Party ready rakh! ✨
+        </p>
+    </div>
+
+    <script>
+        // Function to transition between screens smoothly
+        function nextScreen(screenNumber) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            // Show the target screen
+            document.getElementById('screen-' + screenNumber).classList.add('active');
+        }
+
+        // Simple function to create a confetti effect on the iPad screen
+        function triggerConfetti() {
+            const colors = ['#ff4b2b', '#ff416c', '#f2d74e', '#95c11f', '#3498db'];
+            for (let i = 0; i < 100; i++) {
+                let confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                document.body.appendChild(confetti);
+
+                // Randomize positions and colors
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Animate them falling
+                let fallDuration = Math.random() * 3 + 2;
+                confetti.animate([
+                    { transform: `translate3d(0, -10vh, 0) rotate(0deg)`, opacity: 1 },
+                    { transform: `translate3d(${Math.random()*20 - 10}vw, 110vh, 0) rotate(${Math.random()*360}deg)`, opacity: 0 }
+                ], {
+                    duration: fallDuration * 1000,
+                    easing: 'cubic-bezier(.37,0,.63,1)',
+                    fill: 'forwards'
+                });
+
+                // Cleanup
+                setTimeout(() => {
+                    confetti.remove();
+                }, fallDuration * 1000);
+            }
+        }
+    </script>
+</body>
+</html>
