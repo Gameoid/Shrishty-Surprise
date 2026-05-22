@@ -15,7 +15,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #0f0f13; /* Dark aesthetic */
+            background-color: #0d0d11; /* Slightly darker for better contrast with sparkles */
             color: #ffffff;
             height: 100vh;
             width: 100vw;
@@ -24,7 +24,57 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            position: relative; /* Crucial for background layers */
+            z-index: 0;
         }
+
+        /* --- Sparkle Background Elements --- */
+        /* Layer 1 - Smaller, faster sparkles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 1px),
+                radial-gradient(white, rgba(255,255,255,.05) 1px, transparent 1px);
+            background-size: 550px 550px, 350px 350px;
+            background-position: 0 0, 40px 60px;
+            z-index: -2; /* Far back */
+            animation: backgroundSparkle1 30s linear infinite;
+        }
+
+        /* Layer 2 - Larger, slower twinkling 'stars' */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 2px),
+                radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1.5px);
+            background-size: 470px 470px, 290px 290px;
+            background-position: 10px 10px, 80px 120px;
+            z-index: -1; /* Closer back */
+            animation: backgroundSparkle2 20s ease-in-out infinite alternate;
+        }
+
+        /* Animation for Layer 1 - slow movement */
+        @keyframes backgroundSparkle1 {
+            from { transform: translateY(0); }
+            to { transform: translateY(-550px); }
+        }
+
+        /* Animation for Layer 2 - twinkle/fade */
+        @keyframes backgroundSparkle2 {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.1); }
+        }
+        /* --- End Sparkle Styles --- */
 
         .screen {
             display: none;
@@ -34,10 +84,12 @@
             width: 90%;
             max-width: 800px; /* Perfect for iPad */
             padding: 40px;
-            background: #1c1c24;
+            background: rgba(28, 28, 36, 0.9); /* Slightly translucent to see background */
             border-radius: 24px;
+            backdrop-filter: blur(5px); /* Nice iPad effect */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             animation: fadeIn 0.8s ease-in-out;
+            z-index: 10; /* Ensures content is above sparkles */
         }
 
         .active {
@@ -52,7 +104,7 @@
 
         p {
             font-size: 1.5rem;
-            color: #b0b0c0;
+            color: #d0d0d0;
             margin-bottom: 40px;
             line-height: 1.6;
         }
@@ -74,15 +126,6 @@
         .btn:active {
             transform: scale(0.95);
             box-shadow: 0 4px 10px rgba(255, 65, 108, 0.2);
-        }
-
-        /* Confetti Animation Elements */
-        .confetti {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            background-color: #f2d74e;
-            opacity: 0;
         }
 
         @keyframes fadeIn {
@@ -153,21 +196,27 @@
             const colors = ['#ff4b2b', '#ff416c', '#f2d74e', '#95c11f', '#3498db'];
             for (let i = 0; i < 100; i++) {
                 let confetti = document.createElement('div');
-                confetti.classList.add('confetti');
+                // Confetti styles
+                confetti.style.position = 'absolute';
+                confetti.style.width = '15px';
+                confetti.style.height = '15px';
+                confetti.style.zIndex = '100'; // Make sure confetti is the highest element
                 document.body.appendChild(confetti);
 
                 // Randomize positions and colors
                 confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = Math.random() * -20 + 'vh'; // Start slightly above view
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.opacity = Math.random() * 0.5 + 0.5; // Random initial opacity
                 
                 // Animate them falling
                 let fallDuration = Math.random() * 3 + 2;
                 confetti.animate([
-                    { transform: `translate3d(0, -10vh, 0) rotate(0deg)`, opacity: 1 },
-                    { transform: `translate3d(${Math.random()*20 - 10}vw, 110vh, 0) rotate(${Math.random()*360}deg)`, opacity: 0 }
+                    { transform: `translate3d(0, 0, 0) rotate(0deg)`, opacity: 1 },
+                    { transform: `translate3d(${Math.random()*30 - 15}vw, 110vh, 0) rotate(${Math.random()*360*2}deg)`, opacity: 0 }
                 ], {
                     duration: fallDuration * 1000,
-                    easing: 'cubic-bezier(.37,0,.63,1)',
+                    easing: 'cubic-bezier(.17,.67,.83,.67)', // specific fall easing
                     fill: 'forwards'
                 });
 
